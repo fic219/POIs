@@ -12,6 +12,7 @@
 		0CDB95772810AB2E00B31971 /* POIs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CDB956B2810AB2E00B31971 /* POIs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0CDB95832810B2F100B31971 /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95822810B2F100B31971 /* POI.swift */; };
 		0CDB95852810B37200B31971 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95842810B37200B31971 /* Coordinates.swift */; };
+		0CDB95892810B73000B31971 /* POILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95882810B73000B31971 /* POILoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		0CDB95752810AB2E00B31971 /* POIsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsTests.swift; sourceTree = "<group>"; };
 		0CDB95822810B2F100B31971 /* POI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		0CDB95842810B37200B31971 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		0CDB95882810B73000B31971 /* POILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				0CDB95822810B2F100B31971 /* POI.swift */,
 				0CDB95842810B37200B31971 /* Coordinates.swift */,
+				0CDB95882810B73000B31971 /* POILoader.swift */,
 			);
 			path = "POIs Feature";
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CDB95892810B73000B31971 /* POILoader.swift in Sources */,
 				0CDB95832810B2F100B31971 /* POI.swift in Sources */,
 				0CDB95852810B37200B31971 /* Coordinates.swift in Sources */,
 			);
