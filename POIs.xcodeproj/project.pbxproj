@@ -10,6 +10,8 @@
 		0CDB95712810AB2E00B31971 /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
 		0CDB95762810AB2E00B31971 /* POIsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95752810AB2E00B31971 /* POIsTests.swift */; };
 		0CDB95772810AB2E00B31971 /* POIs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CDB956B2810AB2E00B31971 /* POIs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0CDB95832810B2F100B31971 /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95822810B2F100B31971 /* POI.swift */; };
+		0CDB95852810B37200B31971 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95842810B37200B31971 /* Coordinates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,8 @@
 		0CDB956B2810AB2E00B31971 /* POIs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POIs.h; sourceTree = "<group>"; };
 		0CDB95702810AB2E00B31971 /* POIsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POIsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CDB95752810AB2E00B31971 /* POIsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsTests.swift; sourceTree = "<group>"; };
+		0CDB95822810B2F100B31971 /* POI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
+		0CDB95842810B37200B31971 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 		0CDB956A2810AB2E00B31971 /* POIs */ = {
 			isa = PBXGroup;
 			children = (
+				0CDB95812810B2CE00B31971 /* POIs Feature */,
 				0CDB956B2810AB2E00B31971 /* POIs.h */,
 			);
 			path = POIs;
@@ -80,6 +85,15 @@
 				0CDB95752810AB2E00B31971 /* POIsTests.swift */,
 			);
 			path = POIsTests;
+			sourceTree = "<group>";
+		};
+		0CDB95812810B2CE00B31971 /* POIs Feature */ = {
+			isa = PBXGroup;
+			children = (
+				0CDB95822810B2F100B31971 /* POI.swift */,
+				0CDB95842810B37200B31971 /* Coordinates.swift */,
+			);
+			path = "POIs Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +158,7 @@
 				TargetAttributes = {
 					0CDB95672810AB2E00B31971 = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 					0CDB956F2810AB2E00B31971 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -191,6 +206,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CDB95832810B2F100B31971 /* POI.swift in Sources */,
+				0CDB95852810B37200B31971 /* Coordinates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +354,7 @@
 		0CDB957B2810AB2E00B31971 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -357,6 +375,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -364,6 +383,7 @@
 		0CDB957C2810AB2E00B31971 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -391,6 +411,7 @@
 		0CDB957E2810AB2E00B31971 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -405,6 +426,7 @@
 		0CDB957F2810AB2E00B31971 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
