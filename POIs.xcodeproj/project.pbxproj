@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C9BBFA92813397700CC2DF7 /* RemotePOILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */; };
+		0C9BBFAB281340CF00CC2DF7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */; };
 		0CDB95712810AB2E00B31971 /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
-		0CDB95762810AB2E00B31971 /* POIsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95752810AB2E00B31971 /* POIsTests.swift */; };
+		0CDB95762810AB2E00B31971 /* RemotePOILoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95752810AB2E00B31971 /* RemotePOILoaderTests.swift */; };
 		0CDB95772810AB2E00B31971 /* POIs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CDB956B2810AB2E00B31971 /* POIs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0CDB95832810B2F100B31971 /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95822810B2F100B31971 /* POI.swift */; };
 		0CDB95852810B37200B31971 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95842810B37200B31971 /* Coordinates.swift */; };
@@ -26,10 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePOILoader.swift; sourceTree = "<group>"; };
+		0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		0CDB95682810AB2E00B31971 /* POIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = POIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CDB956B2810AB2E00B31971 /* POIs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POIs.h; sourceTree = "<group>"; };
 		0CDB95702810AB2E00B31971 /* POIsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POIsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0CDB95752810AB2E00B31971 /* POIsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsTests.swift; sourceTree = "<group>"; };
+		0CDB95752810AB2E00B31971 /* RemotePOILoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePOILoaderTests.swift; sourceTree = "<group>"; };
 		0CDB95822810B2F100B31971 /* POI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		0CDB95842810B37200B31971 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		0CDB95882810B73000B31971 /* POILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILoader.swift; sourceTree = "<group>"; };
@@ -54,6 +58,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C9BBFA72813395500CC2DF7 /* POI API */ = {
+			isa = PBXGroup;
+			children = (
+				0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */,
+				0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */,
+			);
+			path = "POI API";
+			sourceTree = "<group>";
+		};
 		0CDB955E2810AB2E00B31971 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +88,7 @@
 		0CDB956A2810AB2E00B31971 /* POIs */ = {
 			isa = PBXGroup;
 			children = (
+				0C9BBFA72813395500CC2DF7 /* POI API */,
 				0CDB95812810B2CE00B31971 /* POIs Feature */,
 				0CDB956B2810AB2E00B31971 /* POIs.h */,
 			);
@@ -84,7 +98,7 @@
 		0CDB95742810AB2E00B31971 /* POIsTests */ = {
 			isa = PBXGroup;
 			children = (
-				0CDB95752810AB2E00B31971 /* POIsTests.swift */,
+				0CDB95752810AB2E00B31971 /* RemotePOILoaderTests.swift */,
 			);
 			path = POIsTests;
 			sourceTree = "<group>";
@@ -210,8 +224,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CDB95892810B73000B31971 /* POILoader.swift in Sources */,
+				0C9BBFAB281340CF00CC2DF7 /* HTTPClient.swift in Sources */,
 				0CDB95832810B2F100B31971 /* POI.swift in Sources */,
 				0CDB95852810B37200B31971 /* Coordinates.swift in Sources */,
+				0C9BBFA92813397700CC2DF7 /* RemotePOILoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CDB95762810AB2E00B31971 /* POIsTests.swift in Sources */,
+				0CDB95762810AB2E00B31971 /* RemotePOILoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
