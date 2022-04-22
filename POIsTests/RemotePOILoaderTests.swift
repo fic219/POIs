@@ -8,24 +8,28 @@ import POIs
 class RemotePOILoaderTests: XCTestCase {
 
     func test_init_doesNotLoadAnything() {
-        
-        let client = HTTPClientSpy()
-        _ = RemotePOILoader(url: URL(string: "http://anyURL")!, client: client)
-        
+        let (_, client) = makeSUT()
         
         XCTAssertNil(client.loadedURL)
     }
     
     func test_loadingTwice_loadsTwice() {
-        let client = HTTPClientSpy()
         let url = URL(string: "http://anyURL")!
-        let sut = RemotePOILoader(url: url, client: client)
+        let (sut, client) = makeSUT(url: url)
         
         sut.load { _ in }
         sut.load { _ in }
         
         XCTAssertEqual(client.loadedURLs, [url, url])
         
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSUT(url: URL = URL(string: "http://anyURL")!) -> (sut: RemotePOILoader, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = RemotePOILoader(url: url, client: client)
+        return (sut, client)
     }
     
     private class HTTPClientSpy: HTTPClient {
