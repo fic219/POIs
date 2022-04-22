@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol POILoader {
+public protocol POILoader {
     typealias Result = Swift.Result<[POI], Error>
     
     func load(completion: @escaping (Result) -> Void)

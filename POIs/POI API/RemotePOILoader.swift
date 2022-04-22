@@ -14,8 +14,8 @@ public final class RemotePOILoader: POILoader {
         self.client = client
     }
     
-    func load(completion: @escaping (POILoader.Result) -> Void) {
-        
+    public func load(completion: @escaping (POILoader.Result) -> Void) {
+        client.get(from: url)
     }
     
 }

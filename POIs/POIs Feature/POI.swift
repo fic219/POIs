@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct POI {
+public struct POI {
     let name: String
     let description: String?
     let city: String
