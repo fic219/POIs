@@ -39,9 +39,30 @@ class RemotePOILoaderTests: XCTestCase {
         let statusCodes = [199, 201, 300, 401, 500]
         statusCodes.enumerated().forEach { index, code in
             expect(sut: sut, toCompleteWithError: RemotePOILoader.Error.invalidData as NSError, when: {
-                client.complete(with: httpResponse(with: code), at: index)
+                client.complete(with: (anyData, httpResponse(with: code)), at: index)
             })
         }
+    }
+    
+    func test_load_receivingEmptyListDeliversEmptyList() {
+        let (sut, client) = makeSUT()
+        
+        var receivedPOIs: [POI]?
+        
+        let exp = expectation(description: "Wait for completion")
+        sut.load { result in
+            guard case let .success(pois) = result else {
+                XCTFail("Loading should succeed")
+                exp.fulfill()
+                return
+            }
+            receivedPOIs = pois
+            XCTAssertEqual(receivedPOIs, [])
+            exp.fulfill()
+        }
+        client.complete(with: (makeJSON([]), successResponse))
+        wait(for: [exp], timeout: 1)
+       
     }
     
     // MARK: - Helpers
@@ -80,9 +101,13 @@ class RemotePOILoaderTests: XCTestCase {
                                headerFields: nil)!
     }
     
+    private var successResponse: HTTPURLResponse {
+        httpResponse(with: 200)
+    }
+    
     private class HTTPClientSpy: HTTPClient {
         
-        var messages = [(url: URL, completion: (Result<HTTPURLResponse, Error>) -> Void)]()
+        var messages = [(url: URL, completion: (Result<(Data, HTTPURLResponse), Error>) -> Void)]()
         
         var loadedURL: URL? {
             return loadedURLs.first
@@ -92,7 +117,7 @@ class RemotePOILoaderTests: XCTestCase {
             messages.map { $0.url }
         }
         
-        func get(from url: URL, completion: @escaping (Result<HTTPURLResponse, Error>) -> Void) {
+        func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
             messages.append((url, completion))
         }
         
@@ -100,13 +125,21 @@ class RemotePOILoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
         
-        func complete(with response: HTTPURLResponse, at index: Int = 0) {
-            messages[index].completion(.success(response))
+        func complete(with result: (Data, HTTPURLResponse), at index: Int = 0) {
+            messages[index].completion(.success(result))
         }
     }
     
     private func anyURL() -> URL {
         URL(string: "http://anyURL")!
+    }
+    
+    private var anyData: Data {
+        Data("data".utf8)
+    }
+    
+    private func makeJSON(_ pois: [[String: Any]]) -> Data {
+        return try! JSONSerialization.data(withJSONObject: pois)
     }
 
 }

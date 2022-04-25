@@ -22,7 +22,7 @@ public final class RemotePOILoader: POILoader {
     public func load(completion: @escaping (POILoader.Result) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success(response):
+            case let .success((_, response)):
                 guard response.statusCode == 200 else {
                     completion(.failure(Error.invalidData))
                     return
@@ -31,7 +31,6 @@ public final class RemotePOILoader: POILoader {
             case .failure:
                 completion(.failure(Error.connectionError))
             }
-            
         }
     }
     

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct POI {
+public struct POI: Equatable {
     let name: String
     let description: String?
     let city: String
