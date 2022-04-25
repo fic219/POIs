@@ -24,6 +24,27 @@ class RemotePOILoaderTests: XCTestCase {
         
     }
     
+    func test_load_deliversErrorOnClientReturningError() {
+        let (sut, client) = makeSUT()
+        let expectedError = RemotePOILoader.Error.connectionError as NSError
+        
+        var receivedError: NSError?
+        
+        let exp = expectation(description: "Wait for completion")
+        sut.load { result in
+            guard case let .failure(error) = result else {
+                XCTFail("Loading should failed")
+                exp.fulfill()
+                return
+            }
+            receivedError = error as NSError
+            XCTAssertEqual(receivedError, expectedError)
+            exp.fulfill()
+        }
+        client.complete(with: expectedError)
+        wait(for: [exp], timeout: 1)
+    }
+    
     func test_receivingNon200ClientReponse_returnError() {
         let (sut, client) = makeSUT()
         let expectedError = RemotePOILoader.Error.invalidData as NSError

@@ -29,7 +29,7 @@ public final class RemotePOILoader: POILoader {
                 }
                 completion(.success([]))
             case .failure:
-                completion(.failure(Error.invalidData))
+                completion(.failure(Error.connectionError))
             }
             
         }
