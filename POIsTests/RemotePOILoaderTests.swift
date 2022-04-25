@@ -26,44 +26,19 @@ class RemotePOILoaderTests: XCTestCase {
     
     func test_load_deliversErrorOnClientReturningError() {
         let (sut, client) = makeSUT()
-        let expectedError = RemotePOILoader.Error.connectionError as NSError
-        
-        var receivedError: NSError?
-        
-        let exp = expectation(description: "Wait for completion")
-        sut.load { result in
-            guard case let .failure(error) = result else {
-                XCTFail("Loading should failed")
-                exp.fulfill()
-                return
-            }
-            receivedError = error as NSError
-            XCTAssertEqual(receivedError, expectedError)
-            exp.fulfill()
+
+        expectComplete(sut: sut, with: RemotePOILoader.Error.connectionError as NSError) {
+            let clientError = NSError(domain: "RemotePoiLoader.test", code: 0)
+            client.complete(with: clientError)
         }
-        client.complete(with: expectedError)
-        wait(for: [exp], timeout: 1)
     }
     
     func test_receivingNon200ClientReponse_returnError() {
         let (sut, client) = makeSUT()
-        let expectedError = RemotePOILoader.Error.invalidData as NSError
-        var receivedError: NSError?
         
-        let exp = expectation(description: "Wait for completion")
-        sut.load { result in
-            guard case let .failure(error) = result else {
-                XCTFail("Loading should failed")
-                exp.fulfill()
-                return
-            }
-            receivedError = error as NSError
-            XCTAssertEqual(receivedError, expectedError)
-            exp.fulfill()
+        expectComplete(sut: sut, with: RemotePOILoader.Error.invalidData as NSError) {
+            client.complete(with: httpResponse(with: 199))
         }
-        
-        client.complete(with: httpResponse(with: 199))
-        wait(for: [exp], timeout: 1)
         
     }
     
@@ -74,6 +49,24 @@ class RemotePOILoaderTests: XCTestCase {
         let sut = RemotePOILoader(url: url, client: client)
         return (sut, client)
     }
+    
+    private func expectComplete(sut: RemotePOILoader, with expectedError: NSError, action: () -> Void) {
+        let exp = expectation(description: "Wait for completion")
+        sut.load { result in
+            guard case let .failure(error) = result else {
+                XCTFail("Loading should failed")
+                exp.fulfill()
+                return
+            }
+            let receivedError = error as NSError
+            XCTAssertEqual(receivedError, expectedError)
+            exp.fulfill()
+        }
+        
+        action()
+        wait(for: [exp], timeout: 1)
+    }
+    
     private func httpResponse(with code: Int) -> HTTPURLResponse {
         return HTTPURLResponse(url: anyURL(),
                                statusCode: code,
