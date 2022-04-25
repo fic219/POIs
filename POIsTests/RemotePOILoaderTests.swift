@@ -35,7 +35,7 @@ class RemotePOILoaderTests: XCTestCase {
     
     func test_receivingNon200ClientReponse_returnError() {
         let (sut, client) = makeSUT()
-        
+            
         expectComplete(sut: sut, with: RemotePOILoader.Error.invalidData as NSError) {
             client.complete(with: httpResponse(with: 199))
         }
@@ -50,16 +50,20 @@ class RemotePOILoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expectComplete(sut: RemotePOILoader, with expectedError: NSError, action: () -> Void) {
+    private func expectComplete(sut: RemotePOILoader,
+                                with expectedError: NSError,
+                                action: () -> Void,
+                                file: StaticString = #filePath,
+                                line: UInt = #line) {
         let exp = expectation(description: "Wait for completion")
         sut.load { result in
             guard case let .failure(error) = result else {
-                XCTFail("Loading should failed")
+                XCTFail("Loading should failed", file: file, line: line)
                 exp.fulfill()
                 return
             }
             let receivedError = error as NSError
-            XCTAssertEqual(receivedError, expectedError)
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             exp.fulfill()
         }
         
