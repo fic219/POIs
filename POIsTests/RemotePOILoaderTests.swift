@@ -27,19 +27,21 @@ class RemotePOILoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientReturningError() {
         let (sut, client) = makeSUT()
 
-        expectComplete(sut: sut, with: RemotePOILoader.Error.connectionError as NSError) {
+        expect(sut: sut, toCompleteWithError: RemotePOILoader.Error.connectionError as NSError, when: {
             let clientError = NSError(domain: "RemotePoiLoader.test", code: 0)
             client.complete(with: clientError)
-        }
+        })
     }
     
     func test_receivingNon200ClientReponse_returnError() {
         let (sut, client) = makeSUT()
-            
-        expectComplete(sut: sut, with: RemotePOILoader.Error.invalidData as NSError) {
-            client.complete(with: httpResponse(with: 199))
-        }
         
+        let statusCodes = [199, 201, 300, 401, 500]
+        statusCodes.enumerated().forEach { index, code in
+            expect(sut: sut, toCompleteWithError: RemotePOILoader.Error.invalidData as NSError, when: {
+                client.complete(with: httpResponse(with: code), at: index)
+            })
+        }
     }
     
     // MARK: - Helpers
@@ -50,9 +52,9 @@ class RemotePOILoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expectComplete(sut: RemotePOILoader,
-                                with expectedError: NSError,
-                                action: () -> Void,
+    private func expect(sut: RemotePOILoader,
+                                toCompleteWithError expectedError: NSError,
+                                when action: () -> Void,
                                 file: StaticString = #filePath,
                                 line: UInt = #line) {
         let exp = expectation(description: "Wait for completion")
