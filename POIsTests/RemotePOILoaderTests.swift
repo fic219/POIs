@@ -70,7 +70,7 @@ class RemotePOILoaderTests: XCTestCase {
         
         var receivedPOIs: [POI]?
         
-        let expectedPOI = POI(name: "Budapest office",
+        let poiItem1 = makePOIItem(name: "Budapest office",
                               description: "a desc",
                               city: "Budapest",
                               address: "anyAddress",
@@ -78,13 +78,13 @@ class RemotePOILoaderTests: XCTestCase {
                               longitude: 47.529783,
                               latitude: 19.034413)
         
-        let poiItem: [String : Any] = ["name": "Budapest office",
-                        "city": "Budapest",
-                        "address": "anyAddress",
-                        "image": "http://anyImage.jpg",
-                        "description": "a desc",
-                        "coordinates": ["latitude": 19.034413,
-                                        "longitude": 47.529783]]
+        let poiItem2 = makePOIItem(name: "Amsterdam office",
+                              description: "a desc",
+                              city: "Amsterdam",
+                              address: "other Address",
+                              imageURL: "http://otherImage.jpg",
+                              longitude: 47.529783,
+                              latitude: 19.034413)
         
         let exp = expectation(description: "Wait for completion")
         sut.load { result in
@@ -94,10 +94,10 @@ class RemotePOILoaderTests: XCTestCase {
                 return
             }
             receivedPOIs = pois
-            XCTAssertEqual(receivedPOIs, [expectedPOI])
+            XCTAssertEqual(receivedPOIs, [poiItem1.model, poiItem2.model])
             exp.fulfill()
         }
-        client.complete(with: (makeJSON([poiItem]), successResponse))
+        client.complete(with: (makeJSON([poiItem1.json, poiItem2.json]), successResponse))
         wait(for: [exp], timeout: 1)
     }
     
@@ -128,6 +128,30 @@ class RemotePOILoaderTests: XCTestCase {
         
         action()
         wait(for: [exp], timeout: 1)
+    }
+    
+    private func makePOIItem(name: String,
+                             description: String? = nil,
+                             city: String,
+                             address: String,
+                             imageURL: String,
+                             longitude: Double,
+                             latitude: Double) -> (model: POI, json: [String: Any]) {
+        let poiItem = POI(name: name,
+                          description: description,
+                          city: city,
+                          address: address,
+                          imageURL: imageURL,
+                          longitude: longitude,
+                          latitude: latitude)
+        let json: [String : Any] = ["name": name,
+                                    "city": city,
+                                    "address": address,
+                                    "image": imageURL,
+                                    "description": description,
+                                    "coordinates": ["latitude": latitude,
+                                                    "longitude": longitude]].compactMapValues { $0 }
+        return (poiItem, json)
     }
     
     private func httpResponse(with code: Int) -> HTTPURLResponse {
