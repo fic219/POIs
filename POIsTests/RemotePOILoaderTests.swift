@@ -27,7 +27,8 @@ class RemotePOILoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientReturningError() {
         let (sut, client) = makeSUT()
 
-        expect(sut: sut, toCompleteWithError: RemotePOILoader.Error.connectionError as NSError, when: {
+        let expectedError = RemotePOILoader.Error.connectionError as NSError
+        expect(sut: sut, toCompleteWithResult: .failure(expectedError) , when: {
             let clientError = NSError(domain: "RemotePoiLoader.test", code: 0)
             client.complete(with: clientError)
         })
@@ -35,10 +36,12 @@ class RemotePOILoaderTests: XCTestCase {
     
     func test_receivingNon200ClientReponse_returnError() {
         let (sut, client) = makeSUT()
+        let expectedError = RemotePOILoader.Error.invalidData as NSError
         
         let statusCodes = [199, 201, 300, 401, 500]
         statusCodes.enumerated().forEach { index, code in
-            expect(sut: sut, toCompleteWithError: RemotePOILoader.Error.invalidData as NSError, when: {
+            
+            expect(sut: sut, toCompleteWithResult: .failure(expectedError), when: {
                 client.complete(with: (anyData, httpResponse(with: code)), at: index)
             })
         }
@@ -47,28 +50,14 @@ class RemotePOILoaderTests: XCTestCase {
     func test_load_receivingEmptyListDeliversEmptyList() {
         let (sut, client) = makeSUT()
         
-        var receivedPOIs: [POI]?
-        
-        let exp = expectation(description: "Wait for completion")
-        sut.load { result in
-            guard case let .success(pois) = result else {
-                XCTFail("Loading should succeed")
-                exp.fulfill()
-                return
-            }
-            receivedPOIs = pois
-            XCTAssertEqual(receivedPOIs, [])
-            exp.fulfill()
-        }
-        client.complete(with: (makeJSON([]), successResponse))
-        wait(for: [exp], timeout: 1)
+        expect(sut: sut, toCompleteWithResult: .success([]), when: {
+            client.complete(with: (makeJSON([]), successResponse))
+        })
        
     }
     
     func test_load_deliversPOIListOnClientDeliversList() {
         let (sut, client) = makeSUT()
-        
-        var receivedPOIs: [POI]?
         
         let poiItem1 = makePOIItem(name: "Budapest office",
                               description: "a desc",
@@ -86,19 +75,9 @@ class RemotePOILoaderTests: XCTestCase {
                               longitude: 47.529783,
                               latitude: 19.034413)
         
-        let exp = expectation(description: "Wait for completion")
-        sut.load { result in
-            guard case let .success(pois) = result else {
-                XCTFail("Loading should succeed, got \(result)")
-                exp.fulfill()
-                return
-            }
-            receivedPOIs = pois
-            XCTAssertEqual(receivedPOIs, [poiItem1.model, poiItem2.model])
-            exp.fulfill()
-        }
-        client.complete(with: (makeJSON([poiItem1.json, poiItem2.json]), successResponse))
-        wait(for: [exp], timeout: 1)
+        expect(sut: sut, toCompleteWithResult: .success([poiItem1.model, poiItem2.model]), when: {
+            client.complete(with: (makeJSON([poiItem1.json, poiItem2.json]), successResponse))
+        })
     }
     
     // MARK: - Helpers
@@ -110,19 +89,20 @@ class RemotePOILoaderTests: XCTestCase {
     }
     
     private func expect(sut: RemotePOILoader,
-                                toCompleteWithError expectedError: NSError,
+                        toCompleteWithResult expectedResult: POILoader.Result,
                                 when action: () -> Void,
                                 file: StaticString = #filePath,
                                 line: UInt = #line) {
         let exp = expectation(description: "Wait for completion")
-        sut.load { result in
-            guard case let .failure(error) = result else {
-                XCTFail("Loading should failed", file: file, line: line)
-                exp.fulfill()
-                return
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedPOIs), .success(expectedPOIs)):
+                XCTAssertEqual(receivedPOIs, expectedPOIs, "Received: \(receivedPOIs), expected: \(expectedPOIs)")
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError as NSError, expectedError as NSError, "Received: \(receivedError), expected: \(expectedError)")
+            default:
+                XCTFail("Result should be equals. Expected: \(expectedResult), received: \(receivedResult)")
             }
-            let receivedError = error as NSError
-            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             exp.fulfill()
         }
         
