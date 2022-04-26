@@ -14,6 +14,7 @@ public final class RemotePOILoader: POILoader {
     private struct RemotePOI: Decodable {
         let name: String
         let description: String?
+        let address: String
         let city: String
         let image: String
         let coordinates: RemoteCoordinates
@@ -22,6 +23,7 @@ public final class RemotePOILoader: POILoader {
             return POI(name: name,
                        description: description,
                        city: city,
+                       address: address,
                        imageURL: image,
                        longitude: coordinates.longitude,
                        latitude: coordinates.latitude)

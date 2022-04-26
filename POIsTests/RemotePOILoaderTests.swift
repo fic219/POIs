@@ -73,6 +73,7 @@ class RemotePOILoaderTests: XCTestCase {
         let expectedPOI = POI(name: "Budapest office",
                               description: "a desc",
                               city: "Budapest",
+                              address: "anyAddress",
                               imageURL: "http://anyImage.jpg",
                               longitude: 47.529783,
                               latitude: 19.034413)
