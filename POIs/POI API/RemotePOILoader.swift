@@ -6,6 +6,28 @@ import Foundation
 
 public final class RemotePOILoader: POILoader {
     
+    private struct RemoteCoordinates: Decodable {
+        let longitude: Double
+        let latitude: Double
+    }
+    
+    private struct RemotePOI: Decodable {
+        let name: String
+        let description: String?
+        let city: String
+        let image: String
+        let coordinates: RemoteCoordinates
+        
+        var poi: POI {
+            return POI(name: name,
+                       description: description,
+                       city: city,
+                       imageURL: image,
+                       longitude: coordinates.longitude,
+                       latitude: coordinates.latitude)
+        }
+    }
+    
     public enum Error: Swift.Error {
         case connectionError
         case invalidData
@@ -22,12 +44,13 @@ public final class RemotePOILoader: POILoader {
     public func load(completion: @escaping (POILoader.Result) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success((_, response)):
-                guard response.statusCode == 200 else {
+            case let .success((data, response)):
+                guard response.statusCode == 200,
+                      let pois = try? JSONDecoder().decode([RemotePOI].self, from: data) else {
                     completion(.failure(Error.invalidData))
                     return
                 }
-                completion(.success([]))
+                completion(.success(pois.map {$0.poi}))
             case .failure:
                 completion(.failure(Error.connectionError))
             }

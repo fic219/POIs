@@ -65,6 +65,41 @@ class RemotePOILoaderTests: XCTestCase {
        
     }
     
+    func test_load_deliversPOIListOnClientDeliversList() {
+        let (sut, client) = makeSUT()
+        
+        var receivedPOIs: [POI]?
+        
+        let expectedPOI = POI(name: "Budapest office",
+                              description: "a desc",
+                              city: "Budapest",
+                              imageURL: "http://anyImage.jpg",
+                              longitude: 47.529783,
+                              latitude: 19.034413)
+        
+        let poiItem: [String : Any] = ["name": "Budapest office",
+                        "city": "Budapest",
+                        "address": "anyAddress",
+                        "image": "http://anyImage.jpg",
+                        "description": "a desc",
+                        "coordinates": ["latitude": 19.034413,
+                                        "longitude": 47.529783]]
+        
+        let exp = expectation(description: "Wait for completion")
+        sut.load { result in
+            guard case let .success(pois) = result else {
+                XCTFail("Loading should succeed, got \(result)")
+                exp.fulfill()
+                return
+            }
+            receivedPOIs = pois
+            XCTAssertEqual(receivedPOIs, [expectedPOI])
+            exp.fulfill()
+        }
+        client.complete(with: (makeJSON([poiItem]), successResponse))
+        wait(for: [exp], timeout: 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "http://anyURL")!) -> (sut: RemotePOILoader, client: HTTPClientSpy) {
