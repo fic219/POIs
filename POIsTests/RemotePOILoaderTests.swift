@@ -56,6 +56,13 @@ class RemotePOILoaderTests: XCTestCase {
        
     }
     
+    func test_load_receiveErrorOnInvalidData() {
+        let (sut, client) = makeSUT()
+        expect(sut: sut, toCompleteWithResult: .failure(RemotePOILoader.Error.invalidData), when: {
+            client.complete(with: (anyData, successResponse))
+        })
+    }
+    
     func test_load_deliversPOIListOnClientDeliversList() {
         let (sut, client) = makeSUT()
         
