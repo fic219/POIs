@@ -104,6 +104,7 @@ class RemotePOILoaderTests: XCTestCase {
                                 when action: () -> Void,
                                 file: StaticString = #filePath,
                                 line: UInt = #line) {
+        let exp = expectation(description: "Wait for completion")
         sut.load { receivedResult in
             switch (receivedResult, expectedResult) {
             case let (.success(receivedPOIs), .success(expectedPOIs)):
@@ -113,9 +114,11 @@ class RemotePOILoaderTests: XCTestCase {
             default:
                 XCTFail("Result should be equals. Expected: \(expectedResult), received: \(receivedResult)")
             }
+            exp.fulfill()
         }
         
         action()
+        wait(for: [exp], timeout: 1)
     }
     
     private func makePOIItem(name: String,
