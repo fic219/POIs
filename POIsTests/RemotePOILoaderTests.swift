@@ -89,9 +89,13 @@ class RemotePOILoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "http://anyURL")!) -> (sut: RemotePOILoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "http://anyURL")!,
+                         file: StaticString = #filePath,
+                         line: UInt = #line) -> (sut: RemotePOILoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemotePOILoader(url: url, client: client)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, client)
     }
     
