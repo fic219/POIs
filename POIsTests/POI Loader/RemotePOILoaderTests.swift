@@ -181,10 +181,6 @@ class RemotePOILoaderTests: XCTestCase {
         }
     }
     
-    private func anyURL() -> URL {
-        URL(string: "http://anyURL")!
-    }
-    
     private var anyData: Data {
         Data("data".utf8)
     }
