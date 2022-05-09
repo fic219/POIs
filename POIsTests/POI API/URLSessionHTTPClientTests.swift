@@ -7,11 +7,17 @@ import POIs
 
 class URLSessionHTTPClientTests: XCTestCase {
     
+    override func setUp() {
+        URLProtocol.registerClass(URLProtocolStub.self)
+    }
+    
+    override func tearDown() {
+        URLProtocol.unregisterClass(URLProtocolStub.self)
+    }
+    
     func test_getFromURL_performGetRequestFromURL() {
         let sut = makeSut()
         let url = anyURL()
-        
-        URLProtocol.registerClass(URLProtocolStub.self)
         
         URLProtocolStub.observeRequest { request in
             XCTAssertEqual(url, request.url)
@@ -19,12 +25,9 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
         
         sut.get(from: url) { _ in }
-        
-        URLProtocol.unregisterClass(URLProtocolStub.self)
     }
     
     func test_getFromURL_returnErrorOnHTTPError() {
-        URLProtocol.registerClass(URLProtocolStub.self)
         let sut = makeSut()
         let errorToPerformWith = anyNSError()
         URLProtocolStub.stub = URLProtocolStub.Stub(data: nil, response: nil, error: errorToPerformWith)
@@ -40,8 +43,6 @@ class URLSessionHTTPClientTests: XCTestCase {
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1)
-        
-        URLProtocol.unregisterClass(URLProtocolStub.self)
     }
     
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> HTTPClient {
