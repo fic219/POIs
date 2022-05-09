@@ -8,10 +8,16 @@ public class URLSessionHTTPClient: HTTPClient {
     
     public init() {}
     
-    public func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
+    private enum Error: Swift.Error {
+        case unexpectedResponseRepresentation
+    }
+    
+    public func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Swift.Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
+            } else {
+                completion(.failure(Error.unexpectedResponseRepresentation))
             }
         }.resume()
     }

@@ -45,6 +45,24 @@ class URLSessionHTTPClientTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
+    func test_getFromURL_completeWithErrorOnInvalidCases() {
+        let sut = makeSut()
+        
+        URLProtocolStub.stub = URLProtocolStub.Stub(data: anyData, response: anyurlResponse, error: nil)
+        
+        let exp = expectation(description: "Wait for complete")
+        sut.get(from: anyURL()) { result in
+            defer {
+                exp.fulfill()
+            }
+            guard case .failure = result else {
+                XCTFail("Expected to fail, got: \(result)")
+                return
+            }
+        }
+        wait(for: [exp], timeout: 1)
+    }
+    
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> HTTPClient {
         let sut = URLSessionHTTPClient()
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -54,13 +72,17 @@ class URLSessionHTTPClientTests: XCTestCase {
     private func anyNSError() -> Error {
         return NSError(domain: "test.error", code: 0)
     }
+    
+    private var anyurlResponse: URLResponse {
+        return URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
+    }
 }
 
 private class URLProtocolStub: URLProtocol {
     
     struct Stub {
         let data: Data?
-        let response: HTTPURLResponse?
+        let response: URLResponse?
         let error: Error?
     }
     
@@ -89,7 +111,7 @@ private class URLProtocolStub: URLProtocol {
             client?.urlProtocol(self, didFailWithError: error)
         }
         
-        Self.onRequestLoaded?(request)
+        client?.urlProtocolDidFinishLoading(self)
     }
     
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {

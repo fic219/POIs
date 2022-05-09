@@ -181,10 +181,6 @@ class RemotePOILoaderTests: XCTestCase {
         }
     }
     
-    private var anyData: Data {
-        Data("data".utf8)
-    }
-    
     private func makeJSON(_ pois: [[String: Any]]) -> Data {
         return try! JSONSerialization.data(withJSONObject: pois)
     }
