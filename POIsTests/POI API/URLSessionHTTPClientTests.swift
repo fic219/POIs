@@ -23,15 +23,47 @@ class URLSessionHTTPClientTests: XCTestCase {
         URLProtocol.unregisterClass(URLProtocolStub.self)
     }
     
+    func test_getFromURL_returnErrorOnHTTPError() {
+        URLProtocol.registerClass(URLProtocolStub.self)
+        let sut = makeSut()
+        let errorToPerformWith = anyNSError()
+        URLProtocolStub.stub = URLProtocolStub.Stub(data: nil, response: nil, error: errorToPerformWith)
+        
+        let exp = expectation(description: "Wait for complete")
+        sut.get(from: anyURL()) { result in
+            if case let .failure(receivedError) = result {
+                XCTAssertEqual((errorToPerformWith as NSError).code, (receivedError as NSError).code, "Expected to complete with \(errorToPerformWith), got \(receivedError)")
+                XCTAssertEqual((errorToPerformWith as NSError).domain, (receivedError as NSError).domain, "Expected to complete with \(errorToPerformWith), got \(receivedError)")
+            } else {
+                XCTFail("Expected to fail, got: \(result)")
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
+        
+        URLProtocol.unregisterClass(URLProtocolStub.self)
+    }
+    
     private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> HTTPClient {
         let sut = URLSessionHTTPClient()
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
-
+    
+    private func anyNSError() -> Error {
+        return NSError(domain: "test.error", code: 0)
+    }
 }
 
 private class URLProtocolStub: URLProtocol {
+    
+    struct Stub {
+        let data: Data?
+        let response: HTTPURLResponse?
+        let error: Error?
+    }
+    
+    static var stub: Stub?
     private static var onRequestLoaded: ((URLRequest) -> Void)?
     
     static func observeRequest(_ observer: @escaping (URLRequest) -> Void) {
@@ -43,6 +75,19 @@ private class URLProtocolStub: URLProtocol {
     }
     
     override func startLoading() {
+        
+        if let data = Self.stub?.data {
+            client?.urlProtocol(self, didLoad: data)
+        }
+        
+        if let response = Self.stub?.response {
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        }
+        
+        if let error = Self.stub?.error {
+            client?.urlProtocol(self, didFailWithError: error)
+        }
+        
         Self.onRequestLoaded?(request)
     }
     

@@ -10,7 +10,9 @@ public class URLSessionHTTPClient: HTTPClient {
     
     public func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
-            
+            if let error = error {
+                completion(.failure(error))
+            }
         }.resume()
     }
     
