@@ -11,6 +11,8 @@
 		0C16FB8B28269DEF000073BF /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB8A28269DEF000073BF /* URLSessionHTTPClientTests.swift */; };
 		0C16FB8D28269F1F000073BF /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB8C28269F1F000073BF /* URLSessionHTTPClient.swift */; };
 		0C16FB8F28269FF4000073BF /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB8E28269FF4000073BF /* SharedTestHelpers.swift */; };
+		0C84DB29283ECBE6004AE84F /* POIAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C84DB28283ECBE6004AE84F /* POIAPIEndToEndTests.swift */; };
+		0C84DB2A283ECBE6004AE84F /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
 		0C9BBFA92813397700CC2DF7 /* RemotePOILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */; };
 		0C9BBFAB281340CF00CC2DF7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */; };
 		0CDB95712810AB2E00B31971 /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
@@ -22,6 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0C84DB2B283ECBE6004AE84F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CDB955F2810AB2E00B31971 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CDB95672810AB2E00B31971;
+			remoteInfo = POIs;
+		};
 		0CDB95722810AB2E00B31971 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0CDB955F2810AB2E00B31971 /* Project object */;
@@ -36,6 +45,8 @@
 		0C16FB8A28269DEF000073BF /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		0C16FB8C28269F1F000073BF /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		0C16FB8E28269FF4000073BF /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		0C84DB26283ECBE6004AE84F /* POIAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POIAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C84DB28283ECBE6004AE84F /* POIAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIAPIEndToEndTests.swift; sourceTree = "<group>"; };
 		0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePOILoader.swift; sourceTree = "<group>"; };
 		0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		0CDB95682810AB2E00B31971 /* POIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = POIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +59,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0C84DB23283ECBE6004AE84F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C84DB2A283ECBE6004AE84F /* POIs.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CDB95652810AB2E00B31971 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -100,6 +119,14 @@
 			path = "POI API";
 			sourceTree = "<group>";
 		};
+		0C84DB27283ECBE6004AE84F /* POIAPIEndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				0C84DB28283ECBE6004AE84F /* POIAPIEndToEndTests.swift */,
+			);
+			path = POIAPIEndToEndTests;
+			sourceTree = "<group>";
+		};
 		0C9BBFA72813395500CC2DF7 /* POI API */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +141,7 @@
 			children = (
 				0CDB956A2810AB2E00B31971 /* POIs */,
 				0CDB95742810AB2E00B31971 /* POIsTests */,
+				0C84DB27283ECBE6004AE84F /* POIAPIEndToEndTests */,
 				0CDB95692810AB2E00B31971 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -123,6 +151,7 @@
 			children = (
 				0CDB95682810AB2E00B31971 /* POIs.framework */,
 				0CDB95702810AB2E00B31971 /* POIsTests.xctest */,
+				0C84DB26283ECBE6004AE84F /* POIAPIEndToEndTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,6 +200,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0C84DB25283ECBE6004AE84F /* POIAPIEndToEndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C84DB2F283ECBE6004AE84F /* Build configuration list for PBXNativeTarget "POIAPIEndToEndTests" */;
+			buildPhases = (
+				0C84DB22283ECBE6004AE84F /* Sources */,
+				0C84DB23283ECBE6004AE84F /* Frameworks */,
+				0C84DB24283ECBE6004AE84F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0C84DB2C283ECBE6004AE84F /* PBXTargetDependency */,
+			);
+			name = POIAPIEndToEndTests;
+			productName = POIAPIEndToEndTests;
+			productReference = 0C84DB26283ECBE6004AE84F /* POIAPIEndToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0CDB95672810AB2E00B31971 /* POIs */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CDB957A2810AB2E00B31971 /* Build configuration list for PBXNativeTarget "POIs" */;
@@ -214,9 +261,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					0C84DB25283ECBE6004AE84F = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
 					0CDB95672810AB2E00B31971 = {
 						CreatedOnToolsVersion = 13.2.1;
 						LastSwiftMigration = 1320;
@@ -241,11 +291,19 @@
 			targets = (
 				0CDB95672810AB2E00B31971 /* POIs */,
 				0CDB956F2810AB2E00B31971 /* POIsTests */,
+				0C84DB25283ECBE6004AE84F /* POIAPIEndToEndTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0C84DB24283ECBE6004AE84F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CDB95662810AB2E00B31971 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,6 +321,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0C84DB22283ECBE6004AE84F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C84DB29283ECBE6004AE84F /* POIAPIEndToEndTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CDB95642810AB2E00B31971 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -290,6 +356,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0C84DB2C283ECBE6004AE84F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CDB95672810AB2E00B31971 /* POIs */;
+			targetProxy = 0C84DB2B283ECBE6004AE84F /* PBXContainerItemProxy */;
+		};
 		0CDB95732810AB2E00B31971 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0CDB95672810AB2E00B31971 /* POIs */;
@@ -298,6 +369,34 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0C84DB2D283ECBE6004AE84F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0C84DB2E283ECBE6004AE84F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		0CDB95782810AB2E00B31971 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -509,6 +608,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0C84DB2F283ECBE6004AE84F /* Build configuration list for PBXNativeTarget "POIAPIEndToEndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C84DB2D283ECBE6004AE84F /* Debug */,
+				0C84DB2E283ECBE6004AE84F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0CDB95622810AB2E00B31971 /* Build configuration list for PBXProject "POIs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
