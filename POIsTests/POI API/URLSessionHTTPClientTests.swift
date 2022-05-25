@@ -8,23 +8,29 @@ import POIs
 class URLSessionHTTPClientTests: XCTestCase {
     
     override func setUp() {
-        URLProtocol.registerClass(URLProtocolStub.self)
+        URLProtocolStub.startIntercepting()
     }
     
     override func tearDown() {
-        URLProtocol.unregisterClass(URLProtocolStub.self)
+        URLProtocolStub.stopIntercepting()
     }
     
     func test_getFromURL_performGetRequestFromURL() {
         let sut = makeSut()
         let url = anyURL()
         
+        let exp = expectation(description: "Expect for loading")
         URLProtocolStub.observeRequest { request in
             XCTAssertEqual(url, request.url)
             XCTAssertEqual("GET", request.httpMethod)
+            exp.fulfill()
         }
         
         sut.get(from: url) { _ in }
+        
+        wait(for: [exp], timeout: 1)
+        
+        
     }
     
     func test_getFromURL_returnErrorOnHTTPError() {
@@ -143,11 +149,25 @@ private class URLProtocolStub: URLProtocol {
         self.onRequestLoaded = observer
     }
     
+    static func startIntercepting() {
+        URLProtocol.registerClass(URLProtocolStub.self)
+    }
+    
+    static func stopIntercepting() {
+        onRequestLoaded = nil
+        stub = nil
+        URLProtocol.unregisterClass(URLProtocolStub.self)
+    }
+    
     override class func canInit(with request: URLRequest) -> Bool {
         return true
     }
     
     override func startLoading() {
+        if let requestObserver = URLProtocolStub.onRequestLoaded {
+            client?.urlProtocolDidFinishLoading(self)
+            return requestObserver(request)
+        }
         
         if let data = Self.stub?.data {
             client?.urlProtocol(self, didLoad: data)
@@ -160,7 +180,6 @@ private class URLProtocolStub: URLProtocol {
         if let error = Self.stub?.error {
             client?.urlProtocol(self, didFailWithError: error)
         }
-        
         client?.urlProtocolDidFinishLoading(self)
     }
     
