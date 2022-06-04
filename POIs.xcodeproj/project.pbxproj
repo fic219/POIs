@@ -21,6 +21,13 @@
 		0CDB95832810B2F100B31971 /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95822810B2F100B31971 /* POI.swift */; };
 		0CDB95852810B37200B31971 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95842810B37200B31971 /* Coordinates.swift */; };
 		0CDB95892810B73000B31971 /* POILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95882810B73000B31971 /* POILoader.swift */; };
+		0CE28D39284BAFB000BDB918 /* POIsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE28D31284BAFAF00BDB918 /* POIsiOS.framework */; };
+		0CE28D3E284BAFB000BDB918 /* POIsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D3D284BAFB000BDB918 /* POIsViewControllerTests.swift */; };
+		0CE28D3F284BAFB000BDB918 /* POIsiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CE28D33284BAFAF00BDB918 /* POIsiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0CE28D48284BE22600BDB918 /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
+		0CE28D49284BE22600BDB918 /* POIs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0CE28D50284BE6FD00BDB918 /* POIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */; };
+		0CE28D51284BE6FD00BDB918 /* POIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +45,35 @@
 			remoteGlobalIDString = 0CDB95672810AB2E00B31971;
 			remoteInfo = POIs;
 		};
+		0CE28D3A284BAFB000BDB918 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CDB955F2810AB2E00B31971 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CE28D30284BAFAF00BDB918;
+			remoteInfo = POIsiOS;
+		};
+		0CE28D4A284BE22600BDB918 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0CDB955F2810AB2E00B31971 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0CDB95672810AB2E00B31971;
+			remoteInfo = POIs;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0CE28D4C284BE22600BDB918 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0CE28D49284BE22600BDB918 /* POIs.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0C16FB78281C78E5000073BF /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
@@ -56,6 +91,12 @@
 		0CDB95822810B2F100B31971 /* POI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		0CDB95842810B37200B31971 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		0CDB95882810B73000B31971 /* POILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILoader.swift; sourceTree = "<group>"; };
+		0CE28D31284BAFAF00BDB918 /* POIsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = POIsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CE28D33284BAFAF00BDB918 /* POIsiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POIsiOS.h; sourceTree = "<group>"; };
+		0CE28D38284BAFB000BDB918 /* POIsiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POIsiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CE28D3D284BAFB000BDB918 /* POIsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewControllerTests.swift; sourceTree = "<group>"; };
+		0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewController.swift; sourceTree = "<group>"; };
+		0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = POIsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +120,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CDB95712810AB2E00B31971 /* POIs.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CE28D2E284BAFAF00BDB918 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE28D48284BE22600BDB918 /* POIs.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CE28D35284BAFB000BDB918 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE28D39284BAFB000BDB918 /* POIsiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +199,10 @@
 				0CDB956A2810AB2E00B31971 /* POIs */,
 				0CDB95742810AB2E00B31971 /* POIsTests */,
 				0C84DB27283ECBE6004AE84F /* POIAPIEndToEndTests */,
+				0CE28D32284BAFAF00BDB918 /* POIsiOS */,
+				0CE28D3C284BAFB000BDB918 /* POIsiOSTests */,
 				0CDB95692810AB2E00B31971 /* Products */,
+				0CE28D47284BE22600BDB918 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +212,8 @@
 				0CDB95682810AB2E00B31971 /* POIs.framework */,
 				0CDB95702810AB2E00B31971 /* POIsTests.xctest */,
 				0C84DB26283ECBE6004AE84F /* POIAPIEndToEndTests.xctest */,
+				0CE28D31284BAFAF00BDB918 /* POIsiOS.framework */,
+				0CE28D38284BAFB000BDB918 /* POIsiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,6 +248,47 @@
 			path = "POIs Feature";
 			sourceTree = "<group>";
 		};
+		0CE28D32284BAFAF00BDB918 /* POIsiOS */ = {
+			isa = PBXGroup;
+			children = (
+				0CE28D4D284BE6BA00BDB918 /* POI UI */,
+				0CE28D33284BAFAF00BDB918 /* POIsiOS.h */,
+			);
+			path = POIsiOS;
+			sourceTree = "<group>";
+		};
+		0CE28D3C284BAFB000BDB918 /* POIsiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				0CE28D46284BB01C00BDB918 /* POIs UI */,
+			);
+			path = POIsiOSTests;
+			sourceTree = "<group>";
+		};
+		0CE28D46284BB01C00BDB918 /* POIs UI */ = {
+			isa = PBXGroup;
+			children = (
+				0CE28D3D284BAFB000BDB918 /* POIsViewControllerTests.swift */,
+			);
+			path = "POIs UI";
+			sourceTree = "<group>";
+		};
+		0CE28D47284BE22600BDB918 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0CE28D4D284BE6BA00BDB918 /* POI UI */ = {
+			isa = PBXGroup;
+			children = (
+				0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */,
+				0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */,
+			);
+			path = "POI UI";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -194,6 +297,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CDB95772810AB2E00B31971 /* POIs.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CE28D2C284BAFAF00BDB918 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE28D3F284BAFB000BDB918 /* POIsiOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +365,44 @@
 			productReference = 0CDB95702810AB2E00B31971 /* POIsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		0CE28D30284BAFAF00BDB918 /* POIsiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CE28D44284BAFB000BDB918 /* Build configuration list for PBXNativeTarget "POIsiOS" */;
+			buildPhases = (
+				0CE28D2C284BAFAF00BDB918 /* Headers */,
+				0CE28D2D284BAFAF00BDB918 /* Sources */,
+				0CE28D2E284BAFAF00BDB918 /* Frameworks */,
+				0CE28D2F284BAFAF00BDB918 /* Resources */,
+				0CE28D4C284BE22600BDB918 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0CE28D4B284BE22600BDB918 /* PBXTargetDependency */,
+			);
+			name = POIsiOS;
+			productName = POIsiOS;
+			productReference = 0CE28D31284BAFAF00BDB918 /* POIsiOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		0CE28D37284BAFB000BDB918 /* POIsiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CE28D45284BAFB000BDB918 /* Build configuration list for PBXNativeTarget "POIsiOSTests" */;
+			buildPhases = (
+				0CE28D34284BAFB000BDB918 /* Sources */,
+				0CE28D35284BAFB000BDB918 /* Frameworks */,
+				0CE28D36284BAFB000BDB918 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0CE28D3B284BAFB000BDB918 /* PBXTargetDependency */,
+			);
+			name = POIsiOSTests;
+			productName = POIsiOSTests;
+			productReference = 0CE28D38284BAFB000BDB918 /* POIsiOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -274,6 +423,13 @@
 					0CDB956F2810AB2E00B31971 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					0CE28D30284BAFAF00BDB918 = {
+						CreatedOnToolsVersion = 13.3.1;
+						LastSwiftMigration = 1330;
+					};
+					0CE28D37284BAFB000BDB918 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 0CDB95622810AB2E00B31971 /* Build configuration list for PBXProject "POIs" */;
@@ -292,6 +448,8 @@
 				0CDB95672810AB2E00B31971 /* POIs */,
 				0CDB956F2810AB2E00B31971 /* POIsTests */,
 				0C84DB25283ECBE6004AE84F /* POIAPIEndToEndTests */,
+				0CE28D30284BAFAF00BDB918 /* POIsiOS */,
+				0CE28D37284BAFB000BDB918 /* POIsiOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -312,6 +470,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0CDB956E2810AB2E00B31971 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CE28D2F284BAFAF00BDB918 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE28D51284BE6FD00BDB918 /* POIsViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CE28D36284BAFB000BDB918 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -353,6 +526,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0CE28D2D284BAFAF00BDB918 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE28D50284BE6FD00BDB918 /* POIsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CE28D34284BAFB000BDB918 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE28D3E284BAFB000BDB918 /* POIsViewControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -365,6 +554,16 @@
 			isa = PBXTargetDependency;
 			target = 0CDB95672810AB2E00B31971 /* POIs */;
 			targetProxy = 0CDB95722810AB2E00B31971 /* PBXContainerItemProxy */;
+		};
+		0CE28D3B284BAFB000BDB918 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CE28D30284BAFAF00BDB918 /* POIsiOS */;
+			targetProxy = 0CE28D3A284BAFB000BDB918 /* PBXContainerItemProxy */;
+		};
+		0CE28D4B284BE22600BDB918 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0CDB95672810AB2E00B31971 /* POIs */;
+			targetProxy = 0CE28D4A284BE22600BDB918 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -541,6 +740,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIs;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -570,6 +770,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIs;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -602,6 +803,105 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0CE28D40284BAFB000BDB918 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIsiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0CE28D41284BAFB000BDB918 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIsiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0CE28D42284BAFB000BDB918 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIsiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0CE28D43284BAFB000BDB918 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fic219.POIsiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -640,6 +940,24 @@
 			buildConfigurations = (
 				0CDB957E2810AB2E00B31971 /* Debug */,
 				0CDB957F2810AB2E00B31971 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CE28D44284BAFB000BDB918 /* Build configuration list for PBXNativeTarget "POIsiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CE28D40284BAFB000BDB918 /* Debug */,
+				0CE28D41284BAFB000BDB918 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CE28D45284BAFB000BDB918 /* Build configuration list for PBXNativeTarget "POIsiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CE28D42284BAFB000BDB918 /* Debug */,
+				0CE28D43284BAFB000BDB918 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
