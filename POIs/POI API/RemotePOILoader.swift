@@ -16,7 +16,7 @@ public final class RemotePOILoader: POILoader {
         let description: String?
         let address: String
         let city: String
-        let image: String
+        let image: URL
         let coordinates: RemoteCoordinates
         
         var poi: POI {

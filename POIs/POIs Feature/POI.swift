@@ -9,14 +9,14 @@ public struct POI: Equatable {
     let description: String?
     let city: String
     let address: String
-    let imageURL: String
+    let imageURL: URL
     let coordinates: Coordinates
     
     public init(name: String,
                 description: String?,
                 city: String,
                 address: String,
-                imageURL: String,
+                imageURL: URL,
                 longitude: Double,
                 latitude: Double) {
         self.name = name

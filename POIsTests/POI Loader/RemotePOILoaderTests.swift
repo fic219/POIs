@@ -70,7 +70,7 @@ class RemotePOILoaderTests: XCTestCase {
                               description: "a desc",
                               city: "Budapest",
                               address: "anyAddress",
-                              imageURL: "http://anyImage.jpg",
+                              imageURL: URL(string: "http://anyImage.jpg")!,
                               longitude: 47.529783,
                               latitude: 19.034413)
         
@@ -78,7 +78,7 @@ class RemotePOILoaderTests: XCTestCase {
                               description: "a desc",
                               city: "Amsterdam",
                               address: "other Address",
-                              imageURL: "http://otherImage.jpg",
+                              imageURL: URL(string: "http://otherImage.jpg")!,
                               longitude: 47.529783,
                               latitude: 19.034413)
         
@@ -125,7 +125,7 @@ class RemotePOILoaderTests: XCTestCase {
                              description: String? = nil,
                              city: String,
                              address: String,
-                             imageURL: String,
+                             imageURL: URL,
                              longitude: Double,
                              latitude: Double) -> (model: POI, json: [String: Any]) {
         let poiItem = POI(name: name,
@@ -138,7 +138,7 @@ class RemotePOILoaderTests: XCTestCase {
         let json: [String : Any] = ["name": name,
                                     "city": city,
                                     "address": address,
-                                    "image": imageURL,
+                                    "image": imageURL.absoluteString,
                                     "description": description,
                                     "coordinates": ["latitude": latitude,
                                                     "longitude": longitude]].compactMapValues { $0 }
