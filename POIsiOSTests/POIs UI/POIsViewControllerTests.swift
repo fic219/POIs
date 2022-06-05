@@ -22,6 +22,24 @@ class POIsViewControllerTests: XCTestCase {
         sut.simulateUserInitiatedPOIsReload()
         XCTAssertEqual(3, loader.loadPoisCallCount, "Expected another loading request when user initiates a reload")
     }
+    
+    func test_loadIndicator_isvisibleWhileLoadingPois() {
+        let loader = LoaderSpy()
+        let sut = POIsViewController(loader: loader)
+        XCTAssertEqual(sut.isRefreshing, false, "Should not loading before the view appear")
+        
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.isRefreshing, true, "Expect loading after view appear, but before the loader comleting")
+        
+        loader.completeWithSuccess([], at: 0)
+        XCTAssertEqual(sut.isRefreshing, false, "Expect not loading after completing the loader")
+        
+        sut.simulateUserInitiatedPOIsReload()
+        XCTAssertEqual(sut.isRefreshing, true, "Expect loading after user triggered the reload, but before the loader comleting")
+        
+        loader.completeWithError(at: 1)
+        XCTAssertEqual(sut.isRefreshing, false, "Expect not loading after completing the loader")
+    }
 
 }
 
@@ -37,7 +55,19 @@ private class LoaderSpy: POILoader {
         loadRequests.append(completion)
     }
     
+    func completeWithSuccess(_ pois: [POI], at index: Int) {
+        loadRequests[index](.success(pois))
+    }
     
+    func completeWithError(at index: Int) {
+        loadRequests[index](.failure(anyNSError))
+    }
+    
+    
+}
+
+private var anyNSError: Error {
+    return NSError(domain: "test.error", code: 0)
 }
 
 private extension POIsViewController {
