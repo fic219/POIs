@@ -29,6 +29,7 @@
 		0CE28D50284BE6FD00BDB918 /* POIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */; };
 		0CE28D51284BE6FD00BDB918 /* POIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */; };
 		0CE28D52284CAC9800BDB918 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB78281C78E5000073BF /* XCTestCase+MemoryLeakTracking.swift */; };
+		0CE28D55284CC22E00BDB918 /* String+URLEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D54284CC22E00BDB918 /* String+URLEscaping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		0CE28D3D284BAFB000BDB918 /* POIsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewControllerTests.swift; sourceTree = "<group>"; };
 		0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewController.swift; sourceTree = "<group>"; };
 		0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = POIsViewController.xib; sourceTree = "<group>"; };
+		0CE28D54284CC22E00BDB918 /* String+URLEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+URLEscaping.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 		0CDB956A2810AB2E00B31971 /* POIs */ = {
 			isa = PBXGroup;
 			children = (
+				0CE28D53284CC21600BDB918 /* Utils */,
 				0C9BBFA72813395500CC2DF7 /* POI API */,
 				0CDB95812810B2CE00B31971 /* POIs Feature */,
 				0CDB956B2810AB2E00B31971 /* POIs.h */,
@@ -288,6 +291,14 @@
 				0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */,
 			);
 			path = "POI UI";
+			sourceTree = "<group>";
+		};
+		0CE28D53284CC21600BDB918 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0CE28D54284CC22E00BDB918 /* String+URLEscaping.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,6 +522,7 @@
 				0C9BBFAB281340CF00CC2DF7 /* HTTPClient.swift in Sources */,
 				0CDB95832810B2F100B31971 /* POI.swift in Sources */,
 				0CDB95852810B37200B31971 /* Coordinates.swift in Sources */,
+				0CE28D55284CC22E00BDB918 /* String+URLEscaping.swift in Sources */,
 				0C9BBFA92813397700CC2DF7 /* RemotePOILoader.swift in Sources */,
 				0C16FB8D28269F1F000073BF /* URLSessionHTTPClient.swift in Sources */,
 			);

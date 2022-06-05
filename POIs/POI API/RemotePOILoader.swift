@@ -19,6 +19,24 @@ public final class RemotePOILoader: POILoader {
         let image: URL
         let coordinates: RemoteCoordinates
         
+        private enum CodingKeys: String, CodingKey {
+            case name, description, address, city, image, coordinates
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            name = try container.decode(String.self, forKey: .name)
+            description = try? container.decode(String.self, forKey: .description)
+            address = try container.decode(String.self, forKey: .address)
+            city = try container.decode(String.self, forKey: .city)
+            let imageURLStr = try container.decode(String.self, forKey: .image)
+            guard let url = imageURLStr.percentEncodedURL else {
+                throw DecodingError.dataCorruptedError(forKey: .image, in: container, debugDescription: "Malformed image URL")
+            }
+            image = url
+            coordinates = try container.decode(RemoteCoordinates.self, forKey: .coordinates)
+        }
+        
         var poi: POI {
             return POI(name: name,
                        description: description,

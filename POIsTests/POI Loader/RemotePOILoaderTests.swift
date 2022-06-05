@@ -66,7 +66,7 @@ class RemotePOILoaderTests: XCTestCase {
     func test_load_deliversPOIListOnClientDeliversList() {
         let (sut, client) = makeSUT()
         
-        let poiItem1 = makePOIItem(name: "Budapest office",
+        let poiItem1 = makePOIItemJSONPair(name: "Budapest office",
                               description: "a desc",
                               city: "Budapest",
                               address: "anyAddress",
@@ -74,7 +74,7 @@ class RemotePOILoaderTests: XCTestCase {
                               longitude: 47.529783,
                               latitude: 19.034413)
         
-        let poiItem2 = makePOIItem(name: "Amsterdam office",
+        let poiItem2 = makePOIItemJSONPair(name: "Amsterdam office",
                               description: "a desc",
                               city: "Amsterdam",
                               address: "other Address",
@@ -85,6 +85,29 @@ class RemotePOILoaderTests: XCTestCase {
         expect(sut: sut, toCompleteWithResult: .success([poiItem1.model, poiItem2.model]), when: {
             client.complete(with: (makeJSON([poiItem1.json, poiItem2.json]), successResponse))
         })
+    }
+    
+    func test_load_deliversPOIListWithUnescapedImageURL() {
+        let (sut, client) = makeSUT()
+        
+        let expectedPOI = makePOIItem(name: "Budapest office",
+                                      description: "a desc",
+                                      city: "Budapest",
+                                      address: "anyAddress",
+                                      imageURL: "http://anyImage with space.jpg".percentEncodedURL!,
+                                      longitude: 47.529783,
+                                      latitude: 19.034413)
+        
+        let poiJSONToParse = makePOIJSON(name: "Budapest office",
+                                         description: "a desc",
+                                         city: "Budapest",
+                                         address: "anyAddress",
+                                         imageURLStr: "http://anyImage with space.jpg",
+                                         longitude: 47.529783,
+                                         latitude: 19.034413)
+        expect(sut: sut, toCompleteWithResult: .success([expectedPOI])) {
+            client.complete(with: (makeJSON([poiJSONToParse]), successResponse))
+        }
     }
     
     // MARK: - Helpers
@@ -121,28 +144,59 @@ class RemotePOILoaderTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
-    private func makePOIItem(name: String,
+    private func makePOIItemJSONPair(name: String,
                              description: String? = nil,
                              city: String,
                              address: String,
                              imageURL: URL,
                              longitude: Double,
                              latitude: Double) -> (model: POI, json: [String: Any]) {
-        let poiItem = POI(name: name,
-                          description: description,
-                          city: city,
-                          address: address,
-                          imageURL: imageURL,
-                          longitude: longitude,
-                          latitude: latitude)
+        let poiItem = makePOIItem(name: name,
+                                  city: city,
+                                  address: address,
+                                  imageURL: imageURL,
+                                  longitude: longitude,
+                                  latitude: latitude)
+        let json = makePOIJSON(name: name,
+                               city: city,
+                               address: address,
+                               imageURLStr: imageURL.absoluteString,
+                               longitude: longitude,
+                               latitude: latitude)
+        return (poiItem, json)
+    }
+    
+    private func makePOIItem(name: String,
+                             description: String? = nil,
+                             city: String,
+                             address: String,
+                             imageURL: URL,
+                             longitude: Double,
+                             latitude: Double) -> POI {
+        return POI(name: name,
+                   description: description,
+                   city: city,
+                   address: address,
+                   imageURL: imageURL,
+                   longitude: longitude,
+                   latitude: latitude)
+    }
+    
+    private func makePOIJSON(name: String,
+                             description: String? = nil,
+                             city: String,
+                             address: String,
+                             imageURLStr: String,
+                             longitude: Double,
+                             latitude: Double) -> [String: Any] {
         let json: [String : Any] = ["name": name,
                                     "city": city,
                                     "address": address,
-                                    "image": imageURL.absoluteString,
+                                    "image": imageURLStr,
                                     "description": description,
                                     "coordinates": ["latitude": latitude,
                                                     "longitude": longitude]].compactMapValues { $0 }
-        return (poiItem, json)
+        return json
     }
     
     private func httpResponse(with code: Int) -> HTTPURLResponse {
