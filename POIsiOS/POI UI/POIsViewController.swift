@@ -32,8 +32,8 @@ public class POIsViewController: UIViewController {
     
     @objc private func refresh() {
         refreshControl.beginRefreshing()
-        loader.load { _ in
-            self.refreshControl.endRefreshing()
+        loader.load { [weak self] _ in
+            self?.refreshControl.endRefreshing()
         }
     }
     

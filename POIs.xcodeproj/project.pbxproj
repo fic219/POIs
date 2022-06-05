@@ -28,6 +28,7 @@
 		0CE28D49284BE22600BDB918 /* POIs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0CE28D50284BE6FD00BDB918 /* POIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */; };
 		0CE28D51284BE6FD00BDB918 /* POIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */; };
+		0CE28D52284CAC9800BDB918 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB78281C78E5000073BF /* XCTestCase+MemoryLeakTracking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -539,6 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CE28D3E284BAFB000BDB918 /* POIsViewControllerTests.swift in Sources */,
+				0CE28D52284CAC9800BDB918 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,8 +9,7 @@ import POIs
 class POIsViewControllerTests: XCTestCase {
 
     func test_loadPoisAction_requestPoisFromLoader() {
-        let loader = LoaderSpy()
-        let sut = POIsViewController(loader: loader)
+        let (sut, loader) = makeSUT()
         XCTAssertEqual(0, loader.loadPoisCallCount, "Expected no loading before view is loaded")
         
         sut.loadViewIfNeeded()
@@ -24,8 +23,7 @@ class POIsViewControllerTests: XCTestCase {
     }
     
     func test_loadIndicator_isvisibleWhileLoadingPois() {
-        let loader = LoaderSpy()
-        let sut = POIsViewController(loader: loader)
+        let (sut, loader) = makeSUT()
         XCTAssertEqual(sut.isRefreshing, false, "Should not loading before the view appear")
         
         sut.loadViewIfNeeded()
@@ -39,6 +37,14 @@ class POIsViewControllerTests: XCTestCase {
         
         loader.completeWithError(at: 1)
         XCTAssertEqual(sut.isRefreshing, false, "Expect not loading after completing the loader")
+    }
+    
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
+        let loader = LoaderSpy()
+        let sut = POIsViewController(loader: loader)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return (sut, loader)
     }
 
 }
