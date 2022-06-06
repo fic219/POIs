@@ -23,7 +23,6 @@
 		0CDB95892810B73000B31971 /* POILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB95882810B73000B31971 /* POILoader.swift */; };
 		0CE28D39284BAFB000BDB918 /* POIsiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CE28D31284BAFAF00BDB918 /* POIsiOS.framework */; };
 		0CE28D3E284BAFB000BDB918 /* POIsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D3D284BAFB000BDB918 /* POIsViewControllerTests.swift */; };
-		0CE28D3F284BAFB000BDB918 /* POIsiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CE28D33284BAFAF00BDB918 /* POIsiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0CE28D48284BE22600BDB918 /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
 		0CE28D49284BE22600BDB918 /* POIs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0CE28D50284BE6FD00BDB918 /* POIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */; };
@@ -94,7 +93,6 @@
 		0CDB95842810B37200B31971 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		0CDB95882810B73000B31971 /* POILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILoader.swift; sourceTree = "<group>"; };
 		0CE28D31284BAFAF00BDB918 /* POIsiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = POIsiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0CE28D33284BAFAF00BDB918 /* POIsiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POIsiOS.h; sourceTree = "<group>"; };
 		0CE28D38284BAFB000BDB918 /* POIsiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POIsiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE28D3D284BAFB000BDB918 /* POIsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewControllerTests.swift; sourceTree = "<group>"; };
 		0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewController.swift; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				0CE28D4D284BE6BA00BDB918 /* POI UI */,
-				0CE28D33284BAFAF00BDB918 /* POIsiOS.h */,
 			);
 			path = POIsiOS;
 			sourceTree = "<group>";
@@ -316,7 +313,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CE28D3F284BAFB000BDB918 /* POIsiOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
