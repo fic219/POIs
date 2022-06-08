@@ -5,12 +5,12 @@
 import Foundation
 
 public struct POI: Equatable {
-    let name: String
-    let description: String?
-    let city: String
-    let address: String
-    let imageURL: URL
-    let coordinates: Coordinates
+    public let name: String
+    public let description: String?
+    public let city: String
+    public let address: String
+    public let imageURL: URL
+    public let coordinates: Coordinates
     
     public init(name: String,
                 description: String?,

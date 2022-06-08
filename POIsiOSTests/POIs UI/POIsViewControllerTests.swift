@@ -39,12 +39,38 @@ class POIsViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isRefreshing, false, "Expect not loading after completing the loader")
     }
     
+    func test_loadPoiscompletion_rendersPois() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let pois: [POI] = [makePOI(name: "poi1")]
+        
+        loader.completeWithSuccess(pois)
+        XCTAssertEqual(pois.count, sut.numberOfRenderedPOIs)
+    }
+    
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
         let loader = LoaderSpy()
         let sut = POIsViewController(loader: loader)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
+    }
+    
+    private func makePOI(name: String = "a name",
+                         description: String? = nil,
+                         city: String = "a city",
+                         address: String = "an address",
+                         imageURL: URL = URL(string: "http://an-image-url.com")!,
+                         longitude: Double = 47.5,
+                         latitude: Double = 19.5) -> POI {
+        return POI(name: name,
+                   description: description,
+                   city: city,
+                   address: address,
+                   imageURL: imageURL,
+                   longitude: longitude,
+                   latitude: latitude)
     }
 
 }
@@ -61,7 +87,7 @@ private class LoaderSpy: POILoader {
         loadRequests.append(completion)
     }
     
-    func completeWithSuccess(_ pois: [POI], at index: Int) {
+    func completeWithSuccess(_ pois: [POI], at index: Int = 0) {
         loadRequests[index](.success(pois))
     }
     
@@ -83,6 +109,18 @@ private extension POIsViewController {
     
     func simulateUserInitiatedPOIsReload() {
         refreshControl.simulatePullToRefresh()
+    }
+    
+    func renderedName(at index: Int) -> String? {
+        return nil
+    }
+    
+    var numberOfRenderedPOIs: Int {
+        var retValue = 0
+        for section in 0..<collectionView.numberOfSections {
+            retValue += collectionView.numberOfItems(inSection: section)
+        }
+        return retValue
     }
 }
 
