@@ -43,10 +43,17 @@ class POIsViewControllerTests: XCTestCase {
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
         
-        let pois: [POI] = [makePOI(name: "poi1")]
+        let poiA1 = makePOI(name: "poi1", city: "ACity")
+        let poiA2 = makePOI(name: "poi2", city: "ACity")
+        let poiB1 = makePOI(name: "poi3", city: "BCity")
+        let poiC1 = makePOI(name: "poi4", city: "CCity")
+        let orderedPOIs = [[poiA1, poiA2], [poiB1], [poiC1]]
+        let loadedPOIs = [poiA1, poiC1, poiB1, poiA2]
         
-        loader.completeWithSuccess(pois)
-        XCTAssertEqual(pois.count, sut.numberOfRenderedPOIs)
+        loader.completeWithSuccess(loadedPOIs)
+        XCTAssertEqual(loadedPOIs.count, sut.numberOfRenderedPOIs)
+        
+        assertThat(sut, isRendering: orderedPOIs)
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
@@ -71,6 +78,33 @@ class POIsViewControllerTests: XCTestCase {
                    imageURL: imageURL,
                    longitude: longitude,
                    latitude: latitude)
+    }
+    
+    private func assertThat(_ sut: POIsViewController, isRendering pois: [[POI]], file: StaticString = #filePath, line: UInt = #line) {
+        guard sut.numberOfRenderedPOIs == pois.flatMap({$0}).count else {
+            XCTFail("Expected \(pois.count) pois, got \(sut.numberOfRenderedPOIs) instead.", file: file, line: line)
+            return
+        }
+        
+        pois.enumerated().forEach { section, poisInSection in
+            poisInSection.enumerated().forEach { row, poi in
+                assertThat(sut, hasViewConfiguredFor: poi, section: section, row: row, file: file, line: line)
+            }
+        }
+    }
+    
+    private func assertThat(_ sut: POIsViewController, hasViewConfiguredFor poi: POI, section: Int, row: Int, file: StaticString = #filePath, line: UInt = #line) {
+        let view = sut.poiCell(section: section, row: row)
+        
+        guard let cell = view as? POICell else {
+            return XCTFail("Expected \(POICell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
+        }
+        
+        XCTAssertEqual(cell.nameText, poi.name, "Expected name text to be \(String(describing: poi.name)) for poi view at section (\(section)), row: \(row)", file: file, line: line)
+        
+        XCTAssertEqual(cell.addressText, poi.address, "Expected address text to be \(String(describing: poi.address)) for poi view at section (\(section)), row: \(row)", file: file, line: line)
+        
+        XCTAssertEqual(cell.descriptionText, poi.description, "Expected description text to be \(String(describing: poi.description)) for poi view at section (\(section)), row: \(row)", file: file, line: line)
     }
 
 }
@@ -111,8 +145,10 @@ private extension POIsViewController {
         refreshControl.simulatePullToRefresh()
     }
     
-    func renderedName(at index: Int) -> String? {
-        return nil
+    func poiCell(section: Int, row: Int) -> UICollectionViewCell? {
+        let dataSource = collectionView.dataSource
+        let indexPath = IndexPath(row: row, section: section)
+        return dataSource?.collectionView(collectionView, cellForItemAt: indexPath)
     }
     
     var numberOfRenderedPOIs: Int {
@@ -121,6 +157,20 @@ private extension POIsViewController {
             retValue += collectionView.numberOfItems(inSection: section)
         }
         return retValue
+    }
+}
+
+private extension POICell {
+    var nameText: String? {
+        return titleLabel.text
+    }
+    
+    var descriptionText: String? {
+        return descLabel.text
+    }
+    
+    var addressText: String? {
+        return addressLabel.text
     }
 }
 

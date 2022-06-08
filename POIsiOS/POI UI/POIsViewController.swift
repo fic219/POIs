@@ -29,6 +29,8 @@ public class POIsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.register(UINib(nibName: "POICell", bundle: Bundle(for: POICell.self)), forCellWithReuseIdentifier: POICell.reuseIdentifier)
         collectionView.refreshControl = refreshControl
         refresh()
 
@@ -63,9 +65,7 @@ public class POIsViewController: UIViewController {
         
         // order keys alphabetically:
         let keys = groupedPOIs.keys
-        let orderedKeys = keys.sorted { (key1, key2) -> Bool in
-            return key2 > key1
-        }
+        let orderedKeys = keys.sorted { $1 > $0 }
         
         var retValue: [[POI]] = []
         for key in orderedKeys {
@@ -76,13 +76,18 @@ public class POIsViewController: UIViewController {
         
         return retValue
     }
-    
-    
 }
 
 extension POIsViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: POICell.reuseIdentifier, for: indexPath) as? POICell else {
+            return UICollectionViewCell()
+        }
+        let poi = collectionModel[indexPath.section][indexPath.row]
+        cell.titleLabel.text = poi.name
+        cell.descLabel.text = poi.description
+        cell.addressLabel.text = poi.address
+        return cell
     }
 }
 
