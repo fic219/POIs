@@ -57,6 +57,33 @@ class POIsViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [poiB1, poiA2], at: [IndexPath(row: 0, section: 1), IndexPath(row: 1, section: 0)])
     }
     
+    func test_loadPoisWithError_doesNotRenderPoid() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        loader.completeWithError()
+        XCTAssertEqual(sut.numberOfRenderedPOIs, 0)
+    }
+    
+    func test_loadPoisWithError_doesNotInvalidatePreviouslyLoadedPOIs() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let poiA1 = makePOI(name: "poi1", city: "ACity")
+        let poiA2 = makePOI(name: "poi2", city: "ACity")
+        let poiB1 = makePOI(name: "poi3", city: "BCity")
+        let poiC1 = makePOI(name: "poi4", city: "CCity")
+        let orderedPOIs = [[poiA1, poiA2], [poiB1], [poiC1]]
+        let loadedPOIs = [poiA1, poiC1, poiB1, poiA2]
+        loader.completeWithSuccess(loadedPOIs)
+        assertThat(sut, isRendering: orderedPOIs)
+        
+        sut.simulateUserInitiatedPOIsReload()
+        loader.completeWithError()
+        assertThat(sut, isRendering: orderedPOIs)
+        
+    }
+    
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
         let loader = LoaderSpy()
         let sut = POIsViewController(loader: loader)
@@ -134,7 +161,7 @@ private class LoaderSpy: POILoader {
         loadRequests[index](.success(pois))
     }
     
-    func completeWithError(at index: Int) {
+    func completeWithError(at index: Int = 0) {
         loadRequests[index](.failure(anyNSError))
     }
     
