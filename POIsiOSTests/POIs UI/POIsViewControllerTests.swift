@@ -86,7 +86,7 @@ class POIsViewControllerTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = POIsViewController(loader: loader)
+        let sut = POIUIComposer.poiListComposed(poiLoader: loader)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)

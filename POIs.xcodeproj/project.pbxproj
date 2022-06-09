@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C0EAC5A28514A6000311FB1 /* POICell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0EAC5828514A6000311FB1 /* POICell.swift */; };
 		0C0EAC5B28514A6000311FB1 /* POICell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0EAC5928514A6000311FB1 /* POICell.xib */; };
+		0C0EAC7628529A3100311FB1 /* POIsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0EAC7528529A3100311FB1 /* POIsViewModel.swift */; };
+		0C0EAC792852A0DE00311FB1 /* POIUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0EAC782852A0DE00311FB1 /* POIUIComposer.swift */; };
 		0C16FB79281C78E5000073BF /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB78281C78E5000073BF /* XCTestCase+MemoryLeakTracking.swift */; };
 		0C16FB8B28269DEF000073BF /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB8A28269DEF000073BF /* URLSessionHTTPClientTests.swift */; };
 		0C16FB8D28269F1F000073BF /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16FB8C28269F1F000073BF /* URLSessionHTTPClient.swift */; };
@@ -81,6 +83,8 @@
 /* Begin PBXFileReference section */
 		0C0EAC5828514A6000311FB1 /* POICell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POICell.swift; sourceTree = "<group>"; };
 		0C0EAC5928514A6000311FB1 /* POICell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = POICell.xib; sourceTree = "<group>"; };
+		0C0EAC7528529A3100311FB1 /* POIsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIsViewModel.swift; sourceTree = "<group>"; };
+		0C0EAC782852A0DE00311FB1 /* POIUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIUIComposer.swift; sourceTree = "<group>"; };
 		0C16FB78281C78E5000073BF /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		0C16FB8A28269DEF000073BF /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		0C16FB8C28269F1F000073BF /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
@@ -147,6 +151,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0EAC772852A0C600311FB1 /* Composer */ = {
+			isa = PBXGroup;
+			children = (
+				0C0EAC782852A0DE00311FB1 /* POIUIComposer.swift */,
+			);
+			path = Composer;
+			sourceTree = "<group>";
+		};
 		0C16FB77281C78C7000073BF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,8 +300,10 @@
 		0CE28D4D284BE6BA00BDB918 /* POI UI */ = {
 			isa = PBXGroup;
 			children = (
+				0C0EAC772852A0C600311FB1 /* Composer */,
 				0CE28D4E284BE6FD00BDB918 /* POIsViewController.swift */,
 				0CE28D4F284BE6FD00BDB918 /* POIsViewController.xib */,
+				0C0EAC7528529A3100311FB1 /* POIsViewModel.swift */,
 				0C0EAC5828514A6000311FB1 /* POICell.swift */,
 				0C0EAC5928514A6000311FB1 /* POICell.xib */,
 			);
@@ -546,7 +560,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C0EAC792852A0DE00311FB1 /* POIUIComposer.swift in Sources */,
 				0C0EAC5A28514A6000311FB1 /* POICell.swift in Sources */,
+				0C0EAC7628529A3100311FB1 /* POIsViewModel.swift in Sources */,
 				0CE28D50284BE6FD00BDB918 /* POIsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,18 +8,18 @@ import POIs
 public class POIsViewController: UIViewController {
 
     @IBOutlet private(set) public weak var collectionView: UICollectionView!
-    private let loader: POILoader
+    
+    private let viewModel: POIsViewModel
     private var collectionModel = [[POI]]()
     
     private(set) public lazy var refreshControl: UIRefreshControl = {
         let view = UIRefreshControl()
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        
         return view
     }()
     
-    public init(loader: POILoader) {
-        self.loader = loader
+    init(viewModel: POIsViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: Bundle(for: POIsViewController.self))
     }
     
@@ -32,49 +32,27 @@ public class POIsViewController: UIViewController {
         
         collectionView.register(UINib(nibName: "POICell", bundle: Bundle(for: POICell.self)), forCellWithReuseIdentifier: POICell.reuseIdentifier)
         collectionView.refreshControl = refreshControl
+        bind()
         refresh()
 
     }
     
     @objc private func refresh() {
-        refreshControl.beginRefreshing()
-        loader.load { [weak self] result in
-            guard let self = self else { return }
-            if let pois = try? result.get() {
-                self.collectionModel = self.arrangedPOIs(from: pois)
-                self.collectionView.reloadData()
-            }
-            self.refreshControl.endRefreshing()
-        }
+        viewModel.loadPOIs()
     }
     
-    private func arrangedPOIs(from pois: [POI]) -> [[POI]] {
+    private func bind() {
+        viewModel.onPOILoad = { [weak self] pois in
+            self?.collectionModel = pois
+        }
         
-        var groupedPOIs: [String:[POI]] = [:]
-        
-        for poi in pois {
-            if var poisForCity = groupedPOIs[poi.city] {
-                poisForCity.append(poi)
-                groupedPOIs[poi.city] = poisForCity
+        viewModel.onLoadingStateChange = { [weak self] isLoading in
+            if isLoading {
+                self?.refreshControl.beginRefreshing()
             } else {
-                let poisForCity = [poi]
-                groupedPOIs[poi.city] = poisForCity
-            }
-            
-        }
-        
-        // order keys alphabetically:
-        let keys = groupedPOIs.keys
-        let orderedKeys = keys.sorted { $1 > $0 }
-        
-        var retValue: [[POI]] = []
-        for key in orderedKeys {
-            if let poisForKey = groupedPOIs[key] {
-                retValue.append(poisForKey)
+                self?.refreshControl.endRefreshing()
             }
         }
-        
-        return retValue
     }
 }
 
