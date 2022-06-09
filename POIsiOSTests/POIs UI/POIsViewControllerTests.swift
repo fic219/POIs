@@ -51,9 +51,10 @@ class POIsViewControllerTests: XCTestCase {
         let loadedPOIs = [poiA1, poiC1, poiB1, poiA2]
         
         loader.completeWithSuccess(loadedPOIs)
-        XCTAssertEqual(loadedPOIs.count, sut.numberOfRenderedPOIs)
         
         assertThat(sut, isRendering: orderedPOIs)
+        
+        assertThat(sut, isRendering: [poiB1, poiA2], at: [IndexPath(row: 0, section: 1), IndexPath(row: 1, section: 0)])
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
@@ -90,6 +91,14 @@ class POIsViewControllerTests: XCTestCase {
             poisInSection.enumerated().forEach { row, poi in
                 assertThat(sut, hasViewConfiguredFor: poi, section: section, row: row, file: file, line: line)
             }
+        }
+    }
+    
+    private func assertThat(_ sut: POIsViewController, isRendering pois: [POI], at indexPaths: [IndexPath], file: StaticString = #filePath, line: UInt = #line) {
+        
+        pois.enumerated().forEach { index, poi in
+            let indexPath = indexPaths[index]
+            assertThat(sut, hasViewConfiguredFor: poi, section: indexPath.section, row: indexPath.row, file: file, line: line)
         }
     }
     
