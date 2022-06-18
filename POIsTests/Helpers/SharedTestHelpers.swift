@@ -11,3 +11,13 @@ func anyURL() -> URL {
 var anyData: Data {
     Data("data".utf8)
 }
+
+func request(from url: URL) -> URLRequest {
+    var retValue = URLRequest(url: url)
+    retValue.httpMethod = "GET"
+    return retValue
+}
+
+func anyRequest() -> URLRequest {
+    request(from: anyURL())
+}

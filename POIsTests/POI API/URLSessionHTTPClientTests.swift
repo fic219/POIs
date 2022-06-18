@@ -132,16 +132,6 @@ class URLSessionHTTPClientTests: XCTestCase {
     private var anyHTTPURLResponse: HTTPURLResponse {
         return HTTPURLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
     }
-    
-    private func request(from url: URL) -> URLRequest {
-        var retValue = URLRequest(url: url)
-        retValue.httpMethod = "GET"
-        return retValue
-    }
-    
-    private func anyRequest() -> URLRequest {
-        request(from: anyURL())
-    }
 }
 
 private class URLProtocolStub: URLProtocol {

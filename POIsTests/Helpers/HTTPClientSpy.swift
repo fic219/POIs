@@ -9,6 +9,10 @@ class HTTPClientSpy: HTTPClient {
     
     var messages = [(request: URLRequest, completion: (Result<(Data, HTTPURLResponse), Error>) -> Void)]()
     
+    var request: URLRequest? {
+        return messages.compactMap { $0.request }.first
+    }
+    
     var loadedURL: URL? {
         return loadedURLs.first
     }
