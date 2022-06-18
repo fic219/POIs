@@ -19,6 +19,7 @@
 		0C800C6C285DA89E0063FE43 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C800C6B285DA89E0063FE43 /* HTTPClientSpy.swift */; };
 		0C84DB29283ECBE6004AE84F /* POIAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C84DB28283ECBE6004AE84F /* POIAPIEndToEndTests.swift */; };
 		0C84DB2A283ECBE6004AE84F /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
+		0C890995285E7F1D00A7E8C6 /* AuthenticatedHTTPClientDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C890994285E7F1D00A7E8C6 /* AuthenticatedHTTPClientDecorator.swift */; };
 		0C9BBFA92813397700CC2DF7 /* RemotePOILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */; };
 		0C9BBFAB281340CF00CC2DF7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */; };
 		0CDB95712810AB2E00B31971 /* POIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDB95682810AB2E00B31971 /* POIs.framework */; };
@@ -95,6 +96,7 @@
 		0C800C6B285DA89E0063FE43 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		0C84DB26283ECBE6004AE84F /* POIAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POIAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C84DB28283ECBE6004AE84F /* POIAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIAPIEndToEndTests.swift; sourceTree = "<group>"; };
+		0C890994285E7F1D00A7E8C6 /* AuthenticatedHTTPClientDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedHTTPClientDecorator.swift; sourceTree = "<group>"; };
 		0C9BBFA82813397700CC2DF7 /* RemotePOILoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePOILoader.swift; sourceTree = "<group>"; };
 		0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		0CDB95682810AB2E00B31971 /* POIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = POIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +180,7 @@
 			children = (
 				0C9BBFAA281340CE00CC2DF7 /* HTTPClient.swift */,
 				0C16FB8C28269F1F000073BF /* URLSessionHTTPClient.swift */,
+				0C890994285E7F1D00A7E8C6 /* AuthenticatedHTTPClientDecorator.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				0CDB95852810B37200B31971 /* Coordinates.swift in Sources */,
 				0CE28D55284CC22E00BDB918 /* String+URLEscaping.swift in Sources */,
 				0C9BBFA92813397700CC2DF7 /* RemotePOILoader.swift in Sources */,
+				0C890995285E7F1D00A7E8C6 /* AuthenticatedHTTPClientDecorator.swift in Sources */,
 				0C16FB8D28269F1F000073BF /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
