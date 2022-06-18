@@ -8,19 +8,16 @@ import POIs
 class AuthenticatedHTTPClientDecoratorTests: XCTestCase {
 
     func test_execute_applyBasicAuthentication() throws {
-        let httpClient = HTTPClientSpy()
         let username = "username"
         let password = "password"
-        let credentialsProvider = APICredentialsProviderStub(username: username, password: password)
-        let sut = AuthenticatedHTTPClientDecorator(decoratee: httpClient, credentialsProvider: credentialsProvider)
+        let (httpClient, sut) = makeSut(username: username, password: password)
+        
         sut.execute(anyRequest()) { _ in }
         XCTAssertTrue(try XCTUnwrap(httpClient.request).containsBasicAuthHeaderWith(username: username, password: password))
     }
     
     func test_execute_completesdWithDecorateeResult() throws {
-        let httpClient = HTTPClientSpy()
-        let credentialsProvider = APICredentialsProviderStub(username: "username", password: "password")
-        let sut = AuthenticatedHTTPClientDecorator(decoratee: httpClient, credentialsProvider: credentialsProvider)
+        let (httpClient, sut) = makeSut()
         
         let result = (Data("data".utf8), httpResponse(with: 200))
         var receivedResult: Result<(Data, HTTPURLResponse), Error>?
@@ -31,6 +28,19 @@ class AuthenticatedHTTPClientDecoratorTests: XCTestCase {
         let receivedValues = try XCTUnwrap(receivedResult).get()
         XCTAssertEqual(receivedValues.0, result.0)
         XCTAssertEqual(receivedValues.1, result.1)
+    }
+    
+    private func makeSut(username: String = "username",
+                         password: String = "password",
+                         file: StaticString = #filePath,
+                         line: UInt = #line) -> (HTTPClientSpy, AuthenticatedHTTPClientDecorator) {
+        let httpClient = HTTPClientSpy()
+        let credentialsProvider = APICredentialsProviderStub(username: username, password: password)
+        let sut = AuthenticatedHTTPClientDecorator(decoratee: httpClient, credentialsProvider: credentialsProvider)
+        trackForMemoryLeaks(httpClient, file: file, line: line)
+        trackForMemoryLeaks(credentialsProvider, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return (httpClient, sut)
     }
 
 }
