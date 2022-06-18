@@ -36,15 +36,30 @@ class AuthenticatedHTTPClientDecorator: HTTPClient {
 
 class AuthenticatedHTTPClientDecoratorTests: XCTestCase {
 
-    func test_execute_applyBasicAuthentication() {
+    func test_execute_applyBasicAuthentication() throws {
         let httpClient = HTTPClientSpy()
         let username = "username"
         let password = "password"
         let credentialsProvider = APICredentialsProviderStub(username: username, password: password)
         let sut = AuthenticatedHTTPClientDecorator(decoratee: httpClient, credentialsProvider: credentialsProvider)
-        let urlRequest = anyRequest()
-        sut.execute(urlRequest) { _ in }
-        XCTAssertTrue(httpClient.request!.containsBasicAuthHeaderWith(username: username, password: password))
+        sut.execute(anyRequest()) { _ in }
+        XCTAssertTrue(try XCTUnwrap(httpClient.request).containsBasicAuthHeaderWith(username: username, password: password))
+    }
+    
+    func test_execute_completesdWithDecorateeResult() throws {
+        let httpClient = HTTPClientSpy()
+        let credentialsProvider = APICredentialsProviderStub(username: "username", password: "password")
+        let sut = AuthenticatedHTTPClientDecorator(decoratee: httpClient, credentialsProvider: credentialsProvider)
+        
+        let result = (Data("data".utf8), httpResponse(with: 200))
+        var receivedResult: Result<(Data, HTTPURLResponse), Error>?
+        sut.execute(anyRequest()) { receivedResult = $0 }
+        
+        httpClient.complete(with: result)
+        
+        let receivedValues = try XCTUnwrap(receivedResult).get()
+        XCTAssertEqual(receivedValues.0, result.0)
+        XCTAssertEqual(receivedValues.1, result.1)
     }
 
 }

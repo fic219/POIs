@@ -21,3 +21,10 @@ func request(from url: URL) -> URLRequest {
 func anyRequest() -> URLRequest {
     request(from: anyURL())
 }
+
+func httpResponse(with code: Int) -> HTTPURLResponse {
+    return HTTPURLResponse(url: anyURL(),
+                           statusCode: code,
+                           httpVersion: nil,
+                           headerFields: nil)!
+}

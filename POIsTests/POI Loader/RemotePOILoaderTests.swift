@@ -199,13 +199,6 @@ class RemotePOILoaderTests: XCTestCase {
         return json
     }
     
-    private func httpResponse(with code: Int) -> HTTPURLResponse {
-        return HTTPURLResponse(url: anyURL(),
-                               statusCode: code,
-                               httpVersion: nil,
-                               headerFields: nil)!
-    }
-    
     private var successResponse: HTTPURLResponse {
         httpResponse(with: 200)
     }
