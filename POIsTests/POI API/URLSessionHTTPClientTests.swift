@@ -26,7 +26,7 @@ class URLSessionHTTPClientTests: XCTestCase {
             exp.fulfill()
         }
         
-        sut.get(from: url) { _ in }
+        sut.execute(request(from: url)) { _ in }
         
         wait(for: [exp], timeout: 1)
         
@@ -39,7 +39,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         URLProtocolStub.stub = URLProtocolStub.Stub(data: nil, response: nil, error: errorToPerformWith)
         
         let exp = expectation(description: "Wait for complete")
-        sut.get(from: anyURL()) { result in
+        sut.execute(anyRequest()) { result in
             if case let .failure(receivedError) = result {
                 XCTAssertEqual((errorToPerformWith as NSError).code, (receivedError as NSError).code, "Expected to complete with \(errorToPerformWith), got \(receivedError)")
                 XCTAssertEqual((errorToPerformWith as NSError).domain, (receivedError as NSError).domain, "Expected to complete with \(errorToPerformWith), got \(receivedError)")
@@ -89,7 +89,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         URLProtocolStub.stub = URLProtocolStub.Stub(data: data, response: response, error: error)
         let exp = expectation(description: "Wait for complete")
         var receivedError: Error?
-        makeSut().get(from: anyURL()) { result in
+        makeSut().execute(anyRequest()) { result in
             if case let .failure(error) = result {
                 receivedError = error
             }
@@ -104,7 +104,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         let exp = expectation(description: "Wait for complete")
         var receivedData: Data?
         var receivedResponse: HTTPURLResponse?
-        makeSut().get(from: anyURL()) { result in
+        makeSut().execute(anyRequest()) { result in
             if case let .success((data, response)) = result {
                 receivedData = data
                 receivedResponse = response
@@ -131,6 +131,16 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     private var anyHTTPURLResponse: HTTPURLResponse {
         return HTTPURLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
+    }
+    
+    private func request(from url: URL) -> URLRequest {
+        var retValue = URLRequest(url: url)
+        retValue.httpMethod = "GET"
+        return retValue
+    }
+    
+    private func anyRequest() -> URLRequest {
+        request(from: anyURL())
     }
 }
 

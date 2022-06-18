@@ -61,8 +61,14 @@ public final class RemotePOILoader: POILoader {
         self.client = client
     }
     
+    private var request: URLRequest {
+        var retValue = URLRequest(url: url)
+        retValue.httpMethod = "GET"
+        return retValue
+    }
+    
     public func load(completion: @escaping (POILoader.Result) -> Void) {
-        client.get(from: url) { result in
+        client.execute(request) { result in
             switch result {
             case let .success((data, response)):
                 guard response.statusCode == 200,

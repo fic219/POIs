@@ -7,18 +7,18 @@ import POIs
 
 class HTTPClientSpy: HTTPClient {
     
-    var messages = [(url: URL, completion: (Result<(Data, HTTPURLResponse), Error>) -> Void)]()
+    var messages = [(request: URLRequest, completion: (Result<(Data, HTTPURLResponse), Error>) -> Void)]()
     
     var loadedURL: URL? {
         return loadedURLs.first
     }
     
     var loadedURLs: [URL] {
-        messages.map { $0.url }
+        messages.compactMap { $0.request.url }
     }
     
-    func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
-        messages.append((url, completion))
+    func execute(_ urlRequest: URLRequest, completion: @escaping (Result<(Data, HTTPURLResponse), Swift.Error>) -> Void) {
+        messages.append((urlRequest, completion))
     }
     
     func complete(with error: Error, at index: Int = 0) {

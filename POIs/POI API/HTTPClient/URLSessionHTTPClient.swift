@@ -12,8 +12,8 @@ public class URLSessionHTTPClient: HTTPClient {
         case unexpectedResponseRepresentation
     }
     
-    public func get(from url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Swift.Error>) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
+    public func execute(_ urlRequest: URLRequest, completion: @escaping (Result<(Data, HTTPURLResponse), Swift.Error>) -> Void) {
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data, let response = response as? HTTPURLResponse {
