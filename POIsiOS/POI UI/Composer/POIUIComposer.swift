@@ -9,7 +9,8 @@ public final class POIUIComposer {
     private init() {}
     
     public static func poiListComposed(poiLoader: POILoader) -> POIsViewController {
-        let viewModel = POIsViewModel(poiLoader: poiLoader, poiArranger: Self.arrangedPOIs(from:))
+        let viewModel = POIsViewModel(poiLoader: MainThreadDispatchDecorator(decoratee: poiLoader),
+                                      poiArranger: Self.arrangedPOIs(from:))
         return POIsViewController(viewModel: viewModel)
     }
     

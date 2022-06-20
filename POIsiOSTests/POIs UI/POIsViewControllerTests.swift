@@ -84,6 +84,23 @@ class POIsViewControllerTests: XCTestCase {
         
     }
     
+    func test_loadPOIs_completesOnBGThread_DoesNotCrash() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let exp = expectation(description: "waiting for the loader to complete")
+        
+        DispatchQueue.global().async {
+            loader.completeWithSuccess()
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+    }
+    
+    // MARK: - helpers
+    
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (POIsViewController, LoaderSpy) {
         let loader = LoaderSpy()
         let sut = POIUIComposer.poiListComposed(poiLoader: loader)
@@ -157,7 +174,7 @@ private class LoaderSpy: POILoader {
         loadRequests.append(completion)
     }
     
-    func completeWithSuccess(_ pois: [POI], at index: Int = 0) {
+    func completeWithSuccess(_ pois: [POI] = [], at index: Int = 0) {
         loadRequests[index](.success(pois))
     }
     
